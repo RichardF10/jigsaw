@@ -1,201 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-//import React from 'react';
-import React, { useState } from "react";
-import * as rn from 'react-native'
-import { Button, TextInput, Image, StyleSheet, Text, View, Alert, TouchableOpacity} from 'react-native';
-import { FacebookSocialButton } from "react-native-social-buttons";
-import { GoogleSocialButton } from "react-native-social-buttons";
- 
-export default function App() {
- 
-  //const handlePress = () => console.log("Text Pressed");
- 
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
- 
- 
- 
+import * as React from 'react';
+import { Button, Text, View } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import LoginScreen from './screens/Login';
+
+function SettingsScreen() {
+  const navigation = useNavigation();
+
   return (
- 
-    <View style={styles.container}>
- 
-      <Image style = {styles.image} source = {require("./assets/jigsaw_logo.jpg")}/>
- 
-      <Text style = {styles.normalText}> Email Address: </Text>
- 
-      <View style={styles.inputView}>
- 
-        <TextInput
- 
-          style = {styles.InputText}
-          placeholder = "Enter your Email Address"
-          placeholderTextColor = "#003f5c"
-          secureTextEntry = {false}
-          onChangeText = {(emailAddress) => setEmailAddress(emailAddress)}
- 
-        />
- 
-      </View>
- 
-      <Text style = {styles.normalText}> Password: </Text>
- 
-      <View style={styles.inputView}>
- 
-        <TextInput
- 
-          style = {styles.InputText}
-          placeholder = "Enter your Password"
-          placeholderTextColor = "#003f5c"
-          secureTextEntry = {true}
-          onChangeText = {(password) => setPassword(password)}
- 
-        />
-
-      </View>
- 
- 
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings!</Text>
       <Button 
- 
-        title="Forgot Password?" 
+        title="Go Back" 
         color="grey"
-        onPress={() => Alert.alert("Change Password Clicked", "Do you want to change Password?", [
-          {text: "Yes", onPress: () => console.log("Yes was clicked")}, 
-          {text: "No", onPress: () => console.log("No was clicked")}
-        ])}
- 
+        onPress={() => navigation.goBack()}
       />
- 
-
-      <TouchableOpacity style={styles.loginButton} onPress={() => Alert.alert("Login Button Clicked", "Do you want to Proceed?", [
-          {text: "Yes", onPress: () => console.log("Yes was clicked")}, 
-          {text: "No", onPress: () => console.log("No was clicked")}
-        ])}>
- 
-        <Text style={styles.LoginButtonText}>LOGIN</Text>
- 
-      </TouchableOpacity>
- 
-      <View style={styles.inputViewSocial}>
-
-
-
-<FacebookSocialButton onPress={() => alert("Button Clicked") } />
-       <GoogleSocialButton onPress={() => alert("Button Clicked") } />
-
-
-
-
-
-
-
-</View>
-
-
-
-
-
-
-
-
-      <Button 
- 
-        title="Create New Account" 
-        color="grey"
-        onPress={() => Alert.alert("Create New Account Clicked", "Do you want to create a new Account?", [
-          {text: "Yes", onPress: () => console.log("Yes was clicked")}, 
-          {text: "No", onPress: () => console.log("No was clicked")}
-        ])}
- 
-      />
- 
- 
-      <StatusBar style="auto" />
     </View>
   );
 }
- 
-const styles = StyleSheet.create({
-  container: {
- 
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
- 
-  },
- 
-  image: {
-    width:100,
 
-    height: 170,
- 
-    marginBottom: 20 
- 
-  },
- 
-  loginButton: {
- 
-    width: "70%",
-    borderRadius: 25,
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    backgroundColor: "lightblue",
-    marginBottom: 20,
- 
- },
- 
-  normalText: {
- 
-    fontSize: 14,
- 
-  },
- 
-  InputText: {
- 
-    fontSize: 17,
-    //borderColor: "red",
-    alignItems: "center",
-    justifyContent: "center",
- 
-  },
- 
-  inputView: {
- 
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    marginBottom: 20,
-    //backgroundColor: "red",
-    //borderColor: "red",
-    //borderBottomColor: "blue",
-    height: 50,
-    width: "60%",
- 
-  },
- 
-  inputViewSocial: {
- 
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 25,
-    marginBottom:30,
-    //backgroundColor: "red",
-    //borderColor: "red",
-    //borderBottomColor: "blue",
-    height: 50,
-    width: "60%",
- 
-  },
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false
+        }}
+      >
+        <Stack.Screen name="Hone" component={LoginScreen} />
+        <Stack.Screen name="Settings" component={SettingsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
 
-  LoginButtonText: {
- 
-    fontWeight: "bold",
-    fontSize: 20,
-    color: "white",
- 
-  }
- 
-});
+    
+    // <NavigationContainer>
+    //   <Tab.Navigator>
+    //     <Tab.Screen name="Home" component={LoginScreen} />
+    //     <Tab.Screen name="Settings" component={SettingsScreen} />
+    //   </Tab.Navigator>
+    // </NavigationContainer>
+  );
+}
