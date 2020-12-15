@@ -7,9 +7,10 @@ import { FacebookSocialButton } from "react-native-social-buttons";
 import { GoogleSocialButton } from "react-native-social-buttons";
 import firebase from './firebaseClient';
 import { useNavigation } from '@react-navigation/native';
+import { BorderlessButton } from 'react-native-gesture-handler';
 
  
-export default function LoginScreen() {
+export default function SignUpScreen() {
  
   //const handlePress = () => console.log("Text Pressed");
   const navigation = useNavigation();
@@ -21,6 +22,7 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <Image style = {styles.image} source = {require("../assets/jigsaw_logo.jpg")}/>
+      <Text style = {styles.SignText}> SIGN UP </Text>
       <Text style = {styles.normalText}> Email Address: </Text>
       <View style={styles.inputView}>
         <TextInput
@@ -51,60 +53,45 @@ export default function LoginScreen() {
       </View>
  
  
-      <Button 
- 
-        title="Forgot Password?" 
-        color="grey"
-        onPress={() => Alert.alert("Change Password Clicked", "Do you want to change Password?", [
-          {text: "Yes", onPress: () => console.log("Yes was clicked")}, 
-          {text: "No", onPress: () => console.log("No was clicked")}
-        ])}
- 
-      />
       
- <Text style = {styles.normalText}> Click button below to Login </Text>
+ 
 
-<TouchableOpacity style={styles.loginButton} onPress={() => {
+ 
+ 
 
- <Text style={styles.LoginButtonText}>LOGIN</Text>
+      
 
- firebase.auth().signInWithEmailAndPassword('test@gmail4444.com', 'password123')
- .then((user) => {
-  console.log(user)
-   // Signed in 
-   // ...
-   alert("You are now logged in")
- })
- .catch((error) => {
-   var errorCode = error.code;
-   var errorMessage = error.message;
-   console.log(errorMessage)
-   alert("Sorry this account does not exist")
- });
+      <View style={styles.inputViewSocial}>
+
+ <Text style = {styles.regText}> Click button below to Register </Text>
+
+<FacebookSocialButton onPress={() => {
 
 
+firebase.auth().createUserWithEmailAndPassword('test@gmail2.com', 'password123')
 
+.then((user) => {
+ console.log(user)
+  // Signed in 
+  // ...
+  alert("Account Created")
+})
+.catch((error) => {
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log(errorMessage)
+  alert("This email address is already in use")
+  // ..
+});
 } } />
+     
+
+
+</View>
 
 
 
-
-
-      <Button 
- 
-        title="Create New Account" 
-        color="grey"
-        onPress={() => navigation.navigate('Signup')}
-        
- 
-      />
-
-      <Button 
-        title="Go to Settings" 
-        color="grey"
-        onPress={() => navigation.navigate('Settings')}
-      />
- 
+     
  
       <StatusBar style="auto" />
     </View>
@@ -137,15 +124,32 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 10,
     backgroundColor: "lightblue",
-    marginBottom: 10,
+    marginBottom: 20,
  
  },
  
   normalText: {
  
     fontSize: 14,
+ 
+  },
+
+  regText: {
+ 
+    fontSize: 14,
+    marginBottom: 10,
+    color: "red",
+ 
+  },
+
+  SignText: {
+      
+
+    fontSize: 25,
+    color: "red",
+    marginBottom: 20,
  
   },
  
@@ -172,7 +176,19 @@ const styles = StyleSheet.create({
  
   },
  
-  
+  inputViewSocial: {
+ 
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 25,
+    marginBottom:30,
+    //backgroundColor: "red",
+    //borderColor: "red",
+    //borderBottomColor: "blue",
+    height: 50,
+    width: "60%",
+ 
+  },
 
 
   LoginButtonText: {

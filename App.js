@@ -3,8 +3,23 @@ import { Button, Text, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { firebaseConfig } from './config/firebase.js';
+import firebase from 'firebase';
 
+import SignUpScreen from './screens/SignUp';
 import LoginScreen from './screens/Login';
+
+
+
+
+
+
+//var user = firebase.auth().currentUser;
+//if (user) {
+  // User is signed in.
+//} else {
+  // No user is signed in.
+//}
 
 function SettingsScreen() {
   const navigation = useNavigation();
@@ -24,6 +39,7 @@ function SettingsScreen() {
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+
 export default function App() {
   return (
     <NavigationContainer>
@@ -32,9 +48,10 @@ export default function App() {
           headerShown: false
         }}
       >
-        <Stack.Screen name="Hone" component={LoginScreen} />
+       <Stack.Screen name="Hone" component={LoginScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
-      </Stack.Navigator>
+        <Stack.Screen name="Signup" component={SignUpScreen} />
+     </Stack.Navigator>
     </NavigationContainer>
 
     
@@ -44,5 +61,6 @@ export default function App() {
     //     <Tab.Screen name="Settings" component={SettingsScreen} />
     //   </Tab.Navigator>
     // </NavigationContainer>
+    
   );
 }
