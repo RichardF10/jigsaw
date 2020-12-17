@@ -54,31 +54,36 @@ export default function SignUpScreen() {
         />
       </View>
 
-      <View style={styles.inputViewSocial}>
-        <Text style={styles.regText}> Click button below to Register </Text>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={() => {
+          firebase
+            .auth()
+            .createUserWithEmailAndPassword(emailAddress, password)
 
-        <FacebookSocialButton
-          onPress={() => {
-            firebase
-              .auth()
-              .createUserWithEmailAndPassword(emailAddress, password)
+            .then((user) => {
+              console.log(user);
+              // Signed in
+              // ...
+              navigation.navigate("LandingScreen", { user });
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.log();
+              alert(errorMessage);
+              // ..
+            });
+        }}
+      >
+        <Text style={styles.LoginButtonText}>SIGN UP</Text>
+      </TouchableOpacity>
 
-              .then((user) => {
-                console.log(user);
-                // Signed in
-                // ...
-                navigation.navigate("LandingScreen", { user });
-              })
-              .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log();
-                alert(errorMessage);
-                // ..
-              });
-          }}
-        />
-      </View>
+      <Button
+        title="Go Back"
+        color="grey"
+        onPress={() => navigation.goBack()}
+      />
 
       <StatusBar style="auto" />
     </View>
@@ -113,7 +118,7 @@ const styles = StyleSheet.create({
   },
 
   normalText: {
-    fontSize: 14,
+    fontSize: 16,
   },
 
   regText: {
