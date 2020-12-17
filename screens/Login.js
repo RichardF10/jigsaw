@@ -39,9 +39,7 @@ export default function LoginScreen() {
           onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
         />
       </View>
-
       <Text style={styles.normalText}> Password: </Text>
-
       <View style={styles.inputView}>
         <TextInput
           style={styles.InputText}
@@ -51,7 +49,6 @@ export default function LoginScreen() {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
-
       <Button
         title="Forgot Password?"
         color="grey"
@@ -67,8 +64,6 @@ export default function LoginScreen() {
         }
       />
 
-      <Text style={styles.normalText}> Click button below to Login </Text>
-
       <TouchableOpacity
         style={styles.loginButton}
         onPress={() => {
@@ -80,6 +75,7 @@ export default function LoginScreen() {
               // Signed in
               // ...
               alert("You are now logged in");
+              navigation.navigate("LandingScreen", { user });
             })
             .catch((error) => {
               var errorCode = error.code;
@@ -97,13 +93,11 @@ export default function LoginScreen() {
         color="grey"
         onPress={() => navigation.navigate("Signup")}
       />
-
       <Button
         title="Go to Settings"
         color="grey"
         onPress={() => navigation.navigate("Settings")}
       />
-
       <StatusBar style="auto" />
     </View>
   );
@@ -137,7 +131,7 @@ const styles = StyleSheet.create({
   },
 
   normalText: {
-    fontSize: 14,
+    fontSize: 16,
   },
 
   InputText: {
