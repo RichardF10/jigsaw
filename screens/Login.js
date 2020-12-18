@@ -75,7 +75,7 @@ export default function LoginScreen() {
               // Signed in
               // ...
               alert("You are now logged in");
-              navigation.navigate("LandingScreen", { user });
+              navigation.navigate("SignedInScreen", { user });
             })
             .catch((error) => {
               var errorCode = error.code;

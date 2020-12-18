@@ -14,6 +14,8 @@ import {
 } from "react-native";
 import { FacebookSocialButton } from "react-native-social-buttons";
 import { GoogleSocialButton } from "react-native-social-buttons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
 import firebase from "./firebaseClient";
 import { useNavigation } from "@react-navigation/native";
 import { BorderlessButton } from "react-native-gesture-handler";
@@ -41,9 +43,7 @@ export default function SignUpScreen() {
           onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
         />
       </View>
-
       <Text style={styles.normalText}> Password: </Text>
-
       <View style={styles.inputView}>
         <TextInput
           style={styles.InputText}
@@ -53,7 +53,6 @@ export default function SignUpScreen() {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
-
       <TouchableOpacity
         style={styles.loginButton}
         onPress={() => {
@@ -65,7 +64,7 @@ export default function SignUpScreen() {
               console.log(user);
               // Signed in
               // ...
-              navigation.navigate("LandingScreen", { user });
+              navigation.navigate("SignedInScreen", { user });
             })
             .catch((error) => {
               var errorCode = error.code;
@@ -78,7 +77,6 @@ export default function SignUpScreen() {
       >
         <Text style={styles.LoginButtonText}>SIGN UP</Text>
       </TouchableOpacity>
-
       <Button
         title="Go Back"
         color="grey"
